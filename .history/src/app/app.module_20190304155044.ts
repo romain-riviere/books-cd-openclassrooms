@@ -9,9 +9,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { BookListPage } from '../pages/book-list/book-list';
 import { CdListPage } from '../pages/cd-list/cd-list';
-import { LendBookPage } from '../pages/book-list/lend-book/lend-book';
-import { LendCdPage } from '../pages/cd-list/lend-cd/lend-cd';
-import { LibraryService } from '../services/library.service';
+import { LendBookPage } from '../pages/lend-book/lend-book';
+import { LendCdPage } from '../pages/lend-cd/lend-cd';
 
 @NgModule({
   declarations: [
@@ -40,7 +39,6 @@ import { LibraryService } from '../services/library.service';
   providers: [
     StatusBar,
     SplashScreen,
-    LibraryService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
