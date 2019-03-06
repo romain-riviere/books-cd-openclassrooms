@@ -1,0 +1,21 @@
+<form [formGroup]="authForm">
+    <ion-list>
+        <ion-item>
+            <ion-label floating>Adresse mail</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Mot de passe</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+    </ion-list>
+    <button ion-button full (click)="onSubmitForm()">Soumettre</button>
+</form>
+
+<span ion-text color="danger">{{ errorMessage }}</span>
+
+<ion-row class="toggleRow">
+    <p [ngClass]="{'show' : !signUpMode, 'hidden' : signUpMode}">Connexion</p>
+    <ion-toggle [(ngModel)]="signUpMode"></ion-toggle>
+    <p [ngClass]="{'show' : signUpMode, 'hidden' : !signUpMode}">Nouvel utilisateur</p>
+</ion-row>

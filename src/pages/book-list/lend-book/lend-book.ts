@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
-import { Book } from '../../../models/Book';
+import { Item } from '../../../models/Item';
 import { LibraryService } from '../../../services/library.service';
+import { NgForm } from '@angular/forms';
 
 /**
  * Generated class for the LendBookPage page.
@@ -16,24 +17,41 @@ import { LibraryService } from '../../../services/library.service';
 })
 export class LendBookPage {
   index: number;
-  book: Book;
+  borrower: string;
+  book: Item;
+  errorMessage: string;
 
-  constructor(public navParams: NavParams,
+  constructor(
+    public navParams: NavParams,
     public viewCtrl: ViewController,
-    public libraryService: LibraryService) {
-  }
+    public libraryService: LibraryService
+  ) { }
 
   ngOnInit() {
     this.index = this.navParams.get('index');
     this.book = this.libraryService.bookList[this.index];
+    this.borrower = this.book.borrower;
   }
 
   dismissModal() {
     this.viewCtrl.dismiss();
   }
 
-  onToggleBook() {
-    this.book.isLend = !this.book.isLend;
+  onLendBook(form: NgForm) {
+    if (form.value.borrower) {
+      this.book.borrower = form.value.borrower;
+      this.book.isLend = true;
+      this.libraryService.saveBooks();
+      this.dismissModal();
+    } else {
+      this.errorMessage = 'Vous devez renseigner l\'emprunteur'
+    }
   }
 
+  onRecoverBook() {
+    this.book.borrower = '';
+    this.book.isLend = false;
+    this.libraryService.saveBooks();
+    this.dismissModal();
+  }
 }

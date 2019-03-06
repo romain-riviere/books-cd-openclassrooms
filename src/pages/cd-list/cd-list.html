@@ -16,10 +16,12 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-spinner *ngIf="booksLoading"></ion-spinner>
   <ion-list>
     <button ion-item icon-start *ngFor="let cd of cdList; let i = index" (click)="onLoadCD(i)">
       <ion-icon name="exit" [color]="cd.isLend ? 'primary' : 'dark'"></ion-icon>
       {{ cd.name }}
+      <p *ngIf="cd.borrower !== ''">emprunté par {{cd.borrower}}</p>
     </button>
   </ion-list>
 </ion-content>
