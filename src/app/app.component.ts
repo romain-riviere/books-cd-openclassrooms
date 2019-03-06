@@ -9,8 +9,12 @@ import { SettingsPage } from '../pages/settings/settings';
   templateUrl: 'app.html'
 })
 export class MyApp {
+  authPage: any = AuthPage;
   tabsPage: any = TabsPage;
   settingsPage: any = SettingsPage;
+
+  isAuth: boolean = false;
+
   @ViewChild('content') content: NavController;
 
   constructor(platform: Platform,
