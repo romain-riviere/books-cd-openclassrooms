@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
-import { CD } from '../../../models/CD';
+import { Item } from '../../../models/Item';
 import { LibraryService } from '../../../services/library.service';
+import { NgForm } from '@angular/forms';
 
 /**
  * Generated class for the LendCdPage page.
@@ -16,16 +17,20 @@ import { LibraryService } from '../../../services/library.service';
 })
 export class LendCdPage {
   index: number;
-  cd: CD;
+  borrower: string;
+  cd: Item;
+  errorMessage: string;
 
-  constructor(public navParams: NavParams,
+  constructor(
+    public navParams: NavParams,
     public viewCtrl: ViewController,
-    public libraryService: LibraryService) {
-  }
+    public libraryService: LibraryService
+  ) { }
 
   ngOnInit() {
     this.index = this.navParams.get('index');
     this.cd = this.libraryService.cdList[this.index];
+    this.borrower = this.cd.borrower;
   }
 
   dismissModal() {
@@ -36,4 +41,21 @@ export class LendCdPage {
     this.cd.isLend = !this.cd.isLend;
   }
 
+  onLendCD(form: NgForm) {
+    if (form.value.borrower) {
+      this.cd.borrower = form.value.borrower;
+      this.cd.isLend = true;
+      this.libraryService.saveCds();
+      this.dismissModal();
+    } else {
+      this.errorMessage = 'Vous devez renseigner l\'emprunteur'
+    }
+  }
+
+  onRecoverCD() {
+    this.cd.borrower = '';
+    this.cd.isLend = false;
+    this.libraryService.saveCds();
+    this.dismissModal();
+  }
 }
