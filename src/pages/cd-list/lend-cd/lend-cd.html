@@ -19,24 +19,15 @@
     <ion-card-content>
       <p *ngFor="let line of cd.description">{{ line }}</p>
     </ion-card-content>
-    <form #f="ngForm" (ngSubmit)="onLendCD(f)">
-      <ion-grid>
-        <ion-row>
-          <ion-label>Emprunteur :</ion-label>
-          <ion-input type="text" [(ngModel)]="borrower" name="borrower" style="background-color:rgb(180, 180, 180)"
-            [disabled]="cd.isLend"></ion-input>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <button ion-button full type="button" color="dark" [disabled]="!cd.isLend"
-              (click)="onRecoverCD()">Récupérer</button>
-          </ion-col>
-          <ion-col>
-            <button ion-button full type="submit" color="primary" [disabled]="cd.isLend">Prêter</button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </form>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button full color="dark" [disabled]="!cd.isLend" (click)="onToggleCD()">Récupérer</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button full color="primary" [disabled]="cd.isLend" (click)="onToggleCD()">Prêter</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-card>
-  <p style="color: red;" *ngIf="errorMessage">{{errorMessage}}</p>
 </ion-content>

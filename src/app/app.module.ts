@@ -12,8 +12,6 @@ import { CdListPage } from '../pages/cd-list/cd-list';
 import { LendBookPage } from '../pages/book-list/lend-book/lend-book';
 import { LendCdPage } from '../pages/cd-list/lend-cd/lend-cd';
 import { LibraryService } from '../services/library.service';
-import { AuthService } from '../services/auth.service';
-import { AuthPage } from '../pages/auth/auth';
 
 @NgModule({
   declarations: [
@@ -24,7 +22,6 @@ import { AuthPage } from '../pages/auth/auth';
     CdListPage,
     LendBookPage,
     LendCdPage,
-    AuthPage,
   ],
   imports: [
     BrowserModule,
@@ -39,13 +36,11 @@ import { AuthPage } from '../pages/auth/auth';
     CdListPage,
     LendBookPage,
     LendCdPage,
-    AuthPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     LibraryService,
-    AuthService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

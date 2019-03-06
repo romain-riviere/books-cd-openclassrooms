@@ -1,8 +1,8 @@
-export class Item {
+export class Book {
     description: string[];
     isLend: boolean;
 
-    constructor(public name: string, public borrower: string) {
+    constructor(public name: string) {
         this.isLend = false;
     }
 }

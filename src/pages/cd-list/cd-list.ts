@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { MenuController, ModalController } from 'ionic-angular';
-import { Item } from '../../models/Item';
+import { CD } from '../../models/CD';
 import { LibraryService } from '../../services/library.service';
 import { LendCdPage } from './lend-cd/lend-cd';
-import { Subscription } from 'rxjs/Subscription';
 
 /**
  * Generated class for the CdListPage page.
@@ -17,28 +16,14 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: 'cd-list.html',
 })
 export class CdListPage {
-  cdList: Item[];
-  cdsSubscription: Subscription;
-  booksLoading: boolean = true;
+  cdList: CD[];
 
   constructor(private modalCtrl: ModalController,
     private libraryService: LibraryService,
     private menuCtrl: MenuController) { }
 
-  ngOnInit() {
-    this.cdsSubscription = this.libraryService.cds$.subscribe(
-      (cds: Item[]) => {
-        this.cdList = cds
-      }
-    )
-    this.libraryService.emitCDs();
-    this.libraryService.retrieveCds().then(() => {
-      this.booksLoading = false;
-    });;
-  }
-
-  ngOnDestroy() {
-    this.cdsSubscription.unsubscribe();
+  ionViewWillEnter() {
+    this.cdList = this.libraryService.cdList.slice();
   }
   onToggleMenu() {
     this.menuCtrl.open();
